@@ -1,19 +1,15 @@
 import supertest from "supertest";
 import {config} from "../config/config"
 
-let credOfValidUser = config.validCred;
+//переименовать под токен файл
 
-export const token = {
-    auth: (payload) => {
-        return supertest(config.prodUrl)
+const fetchToken = async () => {
+     const res = await supertest(config.prodUrl)
         .post('/Account/v1/GenerateToken')
         .set('Accept', 'application/json')
-        .send(payload)
-    },
-    
-    async save () { 
-        const res = await this.auth(credOfValidUser);
+        .send(config.validCred)
+
         return res.body.token
-    }
 }
-export default token;
+
+
