@@ -58,4 +58,18 @@ describe('positive cases for adding book', () => {
       expect(res.body.code).toBeTruthy();
       expect(res.body.message).toBeTruthy();
     })
+
+  test('I cant add book without auth', async () => {
+    const token = '';
+    const res = await postForBook.createBook({
+      "userId": "8d3c1a45-6f43-403e-9ac5-6d4f8c789779",
+      "collectionOfIsbns": [{
+        "isbn": "9781449325862"
+      }]
+    }, token)
+    expect(res.status).toEqual(401);
+    const res2 = await getBooks.getBook();
+    expect(res2.body.books[0]).toBeFalsy();
+    console.log(res2.body);
+  })
 })
