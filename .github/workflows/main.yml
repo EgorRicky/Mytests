@@ -21,7 +21,7 @@ jobs:
           name: html-report
           if-no-files-found: error
           path: html-report
-          retention-days: 30
+          retention-days: 31
       - name: Publish HTML report to egorricky.github.io/Mytests
         if: always()
         uses: peaceiris/actions-gh-pages@v3.7.3
