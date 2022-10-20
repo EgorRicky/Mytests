@@ -30,4 +30,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           keep_files: true
       - name: Send report to telegram
-          run: "curl -X POST https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage -H \"Content-Type: application/json\" -d '{\"chat_id\": \"${{secrets.BOT_ID}}\", \"text\": \"Test report: https://egorricky.github.io/Mytests/report.html\"}'"
+        run: "curl -X POST https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage -H \"Content-Type: application/json\" -d '{\"chat_id\": \"${{secrets.BOT_ID}}\", \"text\": \"Test report: https://egorricky.github.io/Mytests/report.html\"}'"
