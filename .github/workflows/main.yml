@@ -19,6 +19,12 @@ jobs:
         if: always()
         with:
           name: html-report
-          if-no-fiels-found: error
+          if-no-files-found: error
           path: html-report
           retention-days: 1
+      - name: Publish HTML report to egorricky.github.io/Mytests
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          publish_dir: html-report/
+          keep_files: true
