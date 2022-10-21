@@ -1,0 +1,33 @@
+name: Test CI
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - run: npm ci
+      - run: npm run test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: html-report
+          if-no-files-found: error
+          path: html-report
+          retention-days: 31
+      - name: Publish HTML report to egorricky.github.io/Mytests
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          publish_dir: html-report/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          keep_files: true
+      - name: Send report to telegram
+        run: "curl -X POST https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage -H \"Content-Type: application/json\" -d '{\"chat_id\": \"${{secrets.CHAT_ID}}\", \"text\": \"Test report: https://egorricky.github.io/Mytests/report.html\"}'"
