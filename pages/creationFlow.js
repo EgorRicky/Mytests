@@ -1,3 +1,4 @@
+import config from '../config';
 const { I } = inject();
 
 locators = {
